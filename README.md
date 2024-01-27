@@ -1,1 +1,1 @@
- RSA Factorinng challenge
+rsa factoring challenge
