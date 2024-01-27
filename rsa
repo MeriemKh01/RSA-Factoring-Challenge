@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+import sys
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+def find_prime_factors(n):
+    if n % 2 == 0:
+        return 2, n // 2
+    i = 3
+    while i * i <= n:
+        if n % i == 0:
+            return i, n // i
+        i += 2
+    return n, 1
+
+def factorize_rsa(filename):
+    with open(filename, 'r') as file:
+        number = int(file.read().strip())
+        p, q = find_prime_factors(number)
+        if is_prime(p) and is_prime(q):
+            print(f"{number}={p}*{q}")
+        else:
+            print(f"Prime factors not found for {number}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: rsa <file>")
+        sys.exit(1)
+    
+    factorize_rsa(sys.argv[1])
